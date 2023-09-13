@@ -1,0 +1,7 @@
+---
+name: ap-portal-storage-api
+
+dependencies: []
+
+files:
+- ap-portal-storage-api/ap-portal-storage-api.jar

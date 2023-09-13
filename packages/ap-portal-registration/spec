@@ -1,0 +1,7 @@
+---
+name: ap-portal-registration
+
+dependencies: []
+
+files:
+- ap-portal-registration/ap-portal-registration.jar

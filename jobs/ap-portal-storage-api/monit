@@ -1,0 +1,5 @@
+check process ap-portal-storage-api
+  with pidfile /var/vcap/sys/run/ap-portal-storage-api/ap-portal-storage-api.pid
+  start program "/var/vcap/jobs/ap-portal-storage-api/bin/monit_debugger service_ctl '/var/vcap/jobs/ap-portal-storage-api/bin/service_ctl start'"
+  stop program "/var/vcap/jobs/ap-portal-storage-api/bin/monit_debugger service_ctl '/var/vcap/jobs/ap-portal-storage-api/bin/service_ctl stop'"
+  group vcap

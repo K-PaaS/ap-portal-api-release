@@ -1,0 +1,8 @@
+---
+name: ap-portal-gateway
+
+dependencies: []
+
+files:
+- ap-portal-gateway/ap-portal-gateway.jar
+

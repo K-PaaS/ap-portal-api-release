@@ -18,37 +18,25 @@ frontend http-in
 mode http
 bind *:80
 acl portalregistration hdr_beg(host) -i portal-registration.
-<% if p("infra.admin.enable") %>
-acl portalinfraadmin hdr_beg(host) -i portal-infra-admin.
-<% end %>
-<% if p("infra.admin.enable") %>
-use_backend infraadmin_servers if portalinfraadmin
-<% end %>
 use_backend eurekaserver_server if portalregistration
 # domain in redirect setting - End
     
 
-<% if p("infra.admin.enable") %>
-backend infraadmin_servers
-mode http
-server server-1 <%= link('paas-ta-portal-infra-admin-link').instances[0].address%>:<%= link('paas-ta-portal-infra-admin-link').p('server.port') %>
-<% end %>
-
 backend eurekaserver_server
 mode http
-server server-1 <%= link('paas-ta-portal-registration-link').instances[0].address%>:<%= link('paas-ta-portal-registration-link').p('server.port') %>
+server server-1 <%= link('ap-portal-registration-link').instances[0].address%>:<%= link('ap-portal-registration-link').p('server.port') %>
 
 
 
 
 frontend http-in-gatewayserver
 mode http
-bind *:<%= link('paas-ta-portal-gateway-link').p('server.port') %>
+bind *:<%= link('ap-portal-gateway-link').p('server.port') %>
 default_backend gatewayserver_server
 
 backend gatewayserver_server
 mode http
-server server-1 <%= link('paas-ta-portal-gateway-link').instances[0].address %>:<%= link('paas-ta-portal-gateway-link').p('server.port') %>
+server server-1 <%= link('ap-portal-gateway-link').instances[0].address %>:<%= link('ap-portal-gateway-link').p('server.port') %>
 
 
 
@@ -65,16 +53,9 @@ mode tcp
 
 # IP:Port in redirect setting - Start
 
-<% if p("infra.admin.enable") %>
-frontend http-in-infraadmin
-mode http
-bind *:<%= link('paas-ta-portal-infra-admin-link').p('server.port') %>
-default_backend infraadmin_servers
-<% end %>
-
 frontend http-in-eurekaserver
 mode http
-bind *:<%= link('paas-ta-portal-registration-link').p('server.port') %>
+bind *:<%= link('ap-portal-registration-link').p('server.port') %>
 default_backend eurekaserver_server
 
 

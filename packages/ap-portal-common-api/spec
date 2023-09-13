@@ -1,0 +1,8 @@
+---
+name: ap-portal-common-api
+
+dependencies: []
+
+files:
+- ap-portal-common-api/ap-portal-common-api.jar
+
