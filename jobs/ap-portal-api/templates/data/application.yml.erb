@@ -62,7 +62,7 @@ ap:
   portal:
     api:
       authorization:
-        base64: Basic YWRtaW46b3BlbnBhYXN0YQ==
+        base64: <%= p("portal_default.header_auth") %>
       zuulUrl:
         cfapi: http://<%= link('ap-portal-gateway-link').instances[0].address %>:<%= link('ap-portal-gateway-link').p('server.port') %>/portalapi
         commonapi: http://<%= link('ap-portal-gateway-link').instances[0].address %>:<%= link('ap-portal-gateway-link').p('server.port') %>/commonapi
