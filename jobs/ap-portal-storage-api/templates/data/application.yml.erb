@@ -2,8 +2,8 @@ spring:
   application:
       name: PortalStorageApi
   security:
-    username: admin
-    password: openkpaas
+    username: <%= p("portal_default.security.username") %>
+    password: <%= p("portal_default.security.password") %>
     http:    # spring boot 1.x
       multipart:
         enabled: true

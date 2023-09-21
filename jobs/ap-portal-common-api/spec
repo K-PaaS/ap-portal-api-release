@@ -25,6 +25,10 @@ consumes:
     type: mariadb
 
 properties:
+  portal_default.security.username:
+    description: spring security username
+  portal_default.security.password:
+    description: spring security password
   portal_default.header_auth:
     description: portal header auth
   java_opts:

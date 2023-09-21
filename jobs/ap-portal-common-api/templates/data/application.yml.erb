@@ -2,8 +2,8 @@ spring:
   application:
     name: PortalCommonApi
   security:
-    username: admin
-    password: openkpaas
+    username: <%= p("portal_default.security.username") %>
+    password: <%= p("portal_default.security.password") %>
 server:
   port: <%= p('server.port')%>
 
