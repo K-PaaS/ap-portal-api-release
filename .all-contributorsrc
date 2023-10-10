@@ -29,8 +29,8 @@
     }
   ],
   "contributorsPerLine": 7,
-  "projectName": "PAAS-TA-PORTAL-API-RELEASE",
-  "projectOwner": "PaaS-TA",
+  "projectName": "ap-portal-api-release",
+  "projectOwner": "K-PaaS",
   "repoType": "github",
   "repoHost": "https://github.com",
   "skipCi": true

@@ -1,0 +1,56 @@
+---
+name: ap-portal-storage-api
+
+templates:
+  bin/service_ctl.erb: bin/service_ctl
+  bin/monit_debugger: bin/monit_debugger
+  data/properties.sh: data/properties.sh
+  data/application.yml.erb: data/application.yml
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+packages:
+  - java
+  - ap-portal-storage-api
+
+provides:
+  - {name: ap-portal-storage-api-link, type: ap-portal-storage-api, properties: [java_opts, server.port, objectStorage.swift.tenantName, objectStorage.swift.username, objectStorage.swift.password, objectStorage.swift.authMethod, objectStorage.swift.preferredRegion, objectStorage.swift.container, objectStorage.swift.user.app.size.mb]}
+
+consumes:
+  - name: ap-portal-registration-link
+    type: ap-portal-registration
+  - name: binary_storage-link
+    type: binary_storage
+
+
+properties:
+  portal_default.security.username:
+    description: spring security username
+  portal_default.security.password:
+    description: spring security password
+  java_opts:
+    description: 'Luncher Java option'
+    default: '-Xms512m -Xmx1024m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -Dfile.encoding=UTF-8 -XX:+UseConcMarkSweepGC -XX:SoftRefLRUPolicyMSPerMB=50 -Dsun.io.useCanonCaches=false -Djava.net.preferIPv4Stack=true -XX:+HeapDumpOnOutOfMemoryError -XX:-OmitStackTraceInFastThrow -Xverify:none -XX:ErrorFile=/var/vcap/sys/log/java_error_in_idea_%p.log -XX:HeapDumpPath=/var/vcap/sys/log/java_error_in_idea.hprof'
+  server.port:
+    description: 'Enter the Service Port'
+    default: '2226'
+  objectStorage.swift.tenantName:
+    description: 'Enter the tenant name'
+    default: 'kpaas-portal'
+  objectStorage.swift.username:
+    description: 'Enter the username'
+    default: 'kpaas-portal'
+  objectStorage.swift.password:
+    description: 'Enter the password'
+    default: 'kpaas'
+  objectStorage.swift.authMethod:
+    description: 'Enter the auth method'
+    default: 'keystone'
+  objectStorage.swift.preferredRegion:
+    description: 'Enter the preferred region'
+    default: 'Public'
+  objectStorage.swift.container:
+    description: 'Enter the container'
+    default: 'portal-container'
+  objectStorage.swift.user.app.size.mb:
+    description: 'Enter the user app size'
+    default: '0'

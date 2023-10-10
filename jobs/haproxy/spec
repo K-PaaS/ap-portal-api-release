@@ -17,14 +17,11 @@ provides:
   - {name: haproxy-link, type: haproxy, properties: [infra.admin.enable]}
 
 consumes:
-  - name: paas-ta-portal-registration-link
-    type: paas-ta-portal-registration
-  - name: paas-ta-portal-gateway-link
-    type: paas-ta-portal-gateway
+  - name: ap-portal-registration-link
+    type: ap-portal-registration
+  - name: ap-portal-gateway-link
+    type: ap-portal-gateway
   - name: mariadb-link
     type: mariadb
 
 properties:
-  infra.admin.enable:
-    description: 'Change it to true only if an infra-admin has been created.'
-    default: false

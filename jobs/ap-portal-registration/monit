@@ -1,0 +1,6 @@
+check process ap-portal-registration
+  with pidfile /var/vcap/sys/run/ap-portal-registration/ap-portal-registration.pid
+  start program "/var/vcap/jobs/ap-portal-registration/bin/monit_debugger service_ctl '/var/vcap/jobs/ap-portal-registration/bin/service_ctl start'"
+  stop program "/var/vcap/jobs/ap-portal-registration/bin/monit_debugger service_ctl '/var/vcap/jobs/ap-portal-registration/bin/service_ctl stop'"
+  group vcap
+

@@ -1,0 +1,8 @@
+---
+name: ap-portal-log-api
+
+dependencies: []
+
+files:
+- ap-portal-log-api/ap-portal-log-api.jar
+

@@ -1,0 +1,79 @@
+spring:
+  application:
+    name: PortalCommonApi
+  security:
+    username: <%= p("portal_default.security.username") %>
+    password: <%= p("portal_default.security.password") %>
+server:
+  port: <%= p('server.port')%>
+
+
+
+datasource:
+  cc:
+    driver-class-name: <%= p('datasource.cc.driver-class-name')%>
+    url: <%= p('datasource.cc.url')%>
+    username: <%= p('datasource.cc.username')%>
+    password: <%= p('datasource.cc.password')%>
+  portal:
+    driver-class-name: <%= p('datasource.portal.driver-class-name')%>
+    url: jdbc:mariadb://<%= link('mariadb-link').instances[0].address %>:<%=link('mariadb-link').p('mariadb.port') %>/portaldb
+    username: <%= p('datasource.portal.username')%>
+    password: <%= p('datasource.portal.password')%>
+  uaa:
+    driver-class-name: <%= p('datasource.uaa.driver-class-name')%>
+    url: <%= p('datasource.uaa.url')%>
+    username: <%= p('datasource.uaa.username')%>
+    password: <%= p('datasource.uaa.password')%>
+jpa:
+  database: postgresql
+  show-sql: true
+  hibernate:
+    ddl-auto: none
+    naming:
+      strategy: org.hibernate.dialect.MySQL5Dialect
+  generate-ddl: false
+mail:
+  smtp:
+    host: <%= p('mail.smtp.host')%>
+    port: <%= p('mail.smtp.port')%>
+    username: <%= p('mail.smtp.username')%>
+    password: <%= p('mail.smtp.password')%>
+    useremail: <%= p('mail.smtp.useremail')%>
+    properties:
+      auth: <%= p('mail.smtp.properties.auth')%>
+      starttls:
+        enable: <%= p('mail.smtp.properties.starttls.enable')%>
+        required: <%= p('mail.smtp.properties.starttls.required')%>
+      maximumTotalQps: 90
+      authUrl: <%= p('mail.smtp.properties.authUrl')%>
+      charset: <%= p('mail.smtp.properties.charset')%>
+      subject: <%= p('mail.smtp.properties.subject')%>
+      createUrl: authcreate
+      expiredUrl: authreset
+      inviteUrl: inviteorg
+ap:
+  portal:
+    api:
+      authorization:
+        base64: <%= p("portal_default.header_auth") %>
+      zuulUrl:
+        cfapi: http://<%= link('ap-portal-gateway-link').instances[0].address %>:<%= link('ap-portal-gateway-link').p('server.port') %>/portalapi
+        commonapi: http://<%= link('ap-portal-gateway-link').instances[0].address %>:<%= link('ap-portal-gateway-link').p('server.port') %>/commonapi
+        storageapi: http://<%= link('ap-portal-gateway-link').instances[0].address %>:<%= link('ap-portal-gateway-link').p('server.port') %>/storageapi
+    storageapi:
+      type: swift
+
+
+# Discovery Server Access
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://<%= link('ap-portal-registration-link').instances[0].address %>:<%= link('ap-portal-registration-link').p('server.port') %>/eureka/
+      registry-fetch-interval-seconds: 5
+  instance:
+    hostname: ${spring.cloud.client.hostname}
+    lease-expiration-duration-in-seconds: 5
+    lease-renewal-interval-in-seconds: 10
+
+languageList: <%= p('languageList')%>

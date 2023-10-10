@@ -1,0 +1,5 @@
+check process ap-portal-gateway
+  with pidfile /var/vcap/sys/run/ap-portal-gateway/ap-portal-gateway.pid
+  start program "/var/vcap/jobs/ap-portal-gateway/bin/monit_debugger service_ctl '/var/vcap/jobs/ap-portal-gateway/bin/service_ctl start'"
+  stop program "/var/vcap/jobs/ap-portal-gateway/bin/monit_debugger service_ctl '/var/vcap/jobs/ap-portal-gateway/bin/service_ctl stop'"
+  group vcap
