@@ -68,7 +68,7 @@ if [[ -z "$DISABLE_ENDPOINTS" ]]; then
     --bootstrap-admin-url http://localhost:<%=p('binary_storage.auth_port')%>/v3/ \
     --bootstrap-internal-url http://localhost:<%=p('binary_storage.auth_port')%>/v3/ \
     --bootstrap-public-url http://<%= link('binary_storage-link').instances[0].address%>:<%=p('binary_storage.auth_port')%>/v3/ \
-    --bootstrap-region-id paasta
+    --bootstrap-region-id kpaas
 fi
 
 echo "---------------------------------------------Endpoint Install End"
@@ -120,11 +120,11 @@ echo "---------------------------------------------apache_wsgi_check End"
 echo "---------------------------------------------Swift Project & User Install Start"
 DEMO_TENANT=$(get_id openstack project create --description "Default project" demo)
 
-ADMIN_USER=$(get_id openstack user create --password secret --project demo paasta)
+ADMIN_USER=$(get_id openstack user create --password secret --project demo kpaas)
 
 #ADMIN_ROLE=$(get_id openstack role create admin)
 
-openstack role add --project demo --user paasta admin
+openstack role add --project demo --user kpaas admin
 
 #
 # Service tenant

@@ -1,4 +1,4 @@
-## PAAS-TA-PORTAL-API-RELEASE
+## ap-portal-api-release
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
@@ -11,50 +11,38 @@
   - CF CLI를 이용한 cloudfoundry container 배포
     - branch : "portal-container-infra" branch 사용 (Portal 운영에 필요한 infra환경 구성)
     - version 표기 방식 [version + "-ctn"] : e.g.) v2.2.0-ctn ...
-    - PaaS-TA v5.0.4 부터 해당 배포 방식 추가 제공
-
-### Notices  
-  - Use PAAS-TA-PORTAL-API-RELEASE >= v.2.0.1
-    - PaaS-TA >= v.5.0.2
-    - portal-deployment >= v5.0.2
-  - Use PAAS-TA-PORTAL-API-RELEASE =< v.2.0.0
-    - PaaS-TA =< v.5.0.1
-    - portal-deployment =< v5.0.1
-  - Use PAAS-TA-PORTAL-API-RELEASE >= v.2.2.0-ctn
-    - PaaS-TA >= v.5.0.4
-    - portal-deployment >= v5.0.4
   
-### PaaS-TA Portal API Release Configuration   
+### Application Platform  Portal API Release Configuration
   - Bosh를 이용한 VM 배포
     - binary_storage : 1 machine
     - haproxy : 1 machine
     - mariadb : 1 machine
-    - paas-ta-portal-registration : 1 machine
-    - paas-ta-portal-gateway : 1 machine
-    - paas-ta-portal-api : 1 machine
-    - paas-ta-portal-common-api : 1 machine
-    - paas-ta-portal-log-api : 1 machine
-    - paas-ta-portal-storage-api : 1 machine
+    - ap-portal-registration : 1 machine
+    - ap-portal-gateway : 1 machine
+    - ap-portal-api : 1 machine
+    - ap-portal-common-api : 1 machine
+    - ap-portal-log-api : 1 machine
+    - ap-portal-storage-api : 1 machine
     
   - CF CLI를 이용한 cloudfoundry container 배포
     - binary_storage & mariadb : 1 machine  
 
-### Create PaaS-TA Portal API Release   
-  - Download the latest PaaS-TA Portal API Release     
+### Create Application Platform Portal API Release
+  - Download the latest Application Platform Portal API Release     
     ```   
     ### Bosh를 이용한 VM 배포 
-    $ git clone https://github.com/PaaS-TA/PAAS-TA-PORTAL-API-RELEASE.git   
-    $ cd PAAS-TA-PORTAL-API-RELEASE
+    $ git clone https://github.com/K-PaaS/ap-portal-api-release.git   
+    $ cd ap-portal-api-release
     
     ### CF CLI를 이용한 cloudfoundry container 배포
-    $ git clone -b portal-container-infra https://github.com/PaaS-TA/PAAS-TA-PORTAL-API-RELEASE.git
-    $ cd PAAS-TA-PORTAL-API-RELEASE
+    $ git clone -b portal-container-infra https://github.com/K-PaaS/ap-portal-api-release.git
+    $ cd ap-portal-api-release
     ```  
     
   - Download & Copy "source files" into the src directory  
     ```   
     ## download source files      
-    $ wget -O src.zip https://nextcloud.paas-ta.org/index.php/s/Fq4te9Sy4WLZCS7/download
+    $ wget -O src.zip https://nextcloud.k-paas.org/index.php/s/X9oLZigaagPXAN4/download
          
     ## unzip download source files   
     $ unzip src.zip
@@ -67,20 +55,20 @@
       │   └── server-jre-8u121-linux-x64.tar.gz
       ├── mariadb
       │   └── mariadb-10.5.17-linux-x86_64.tar.gz
-      ├── paas-ta-portal-api
-      │   └── paas-ta-portal-api.jar
-      ├── paas-ta-portal-common-api
-      │   └── paas-ta-portal-common-api.jar
-      ├── paas-ta-portal-gateway
-      │   └── paas-ta-portal-gateway.jar
-      ├── paas-ta-portal-infra-admin
-      │   └── paas-ta-portal-infra-admin.jar
-      ├── paas-ta-portal-log-api
-      │   └── paas-ta-portal-log-api.jar
-      ├── paas-ta-portal-registration
-      │   └── paas-ta-portal-registration.jar
-      ├── paas-ta-portal-storage-api
-      │   └── paas-ta-portal-storage-api.jar
+      ├── ap-portal-api
+      │   └── ap-portal-api.jar
+      ├── ap-portal-common-api
+      │   └── ap-portal-common-api.jar
+      ├── ap-portal-gateway
+      │   └── ap-portal-gateway.jar
+      ├── ap-portal-infra-admin
+      │   └── ap-portal-infra-admin.jar
+      ├── ap-portal-log-api
+      │   └── ap-portal-log-api.jar
+      ├── ap-portal-registration
+      │   └── ap-portal-registration.jar
+      ├── ap-portal-storage-api
+      │   └── ap-portal-storage-api.jar
       ├── python
       │   └── Python-3.6.9.tgz
       └── swift-all-in-one
@@ -89,7 +77,7 @@
           
      ----------------------------------------------------------------------------------------------------
      ### CF CLI를 이용한 cloudfoundry container 배포시, 사용하지 않는 source files을 지우고 release를 생성할 수 있다.(Option)
-     $ rm -rf src/paas-ta-portal-* src/haproxy src/java
+     $ rm -rf src/ap-portal-* src/haproxy src/java
      
      ### final src directory 
      src
@@ -101,14 +89,14 @@
            └── swift-2.31.1.tar.gz
      ---------------------------------------------------------------------------------------------------- 
     ```   
-  - Create PaaS-TA Portal API Release    
+  - Create Application Platform Portal API Release    
     ```   
     ## <VERSION> :: release version (e.g. 2.5.1 or 2.5.1-ctn)   
-    ## <RELEASE_TARBALL_PATH> :: release file path (e.g. /home/ubuntu/workspace/paasta-portal-api-release-<VERSION>.tgz)   
-    $ bosh -e <bosh_name> create-release --name=paasta-portal-api-release --sha2 --version=<VERSION> --tarball=<RELEASE_TARBALL_PATH> --force   
+    ## <RELEASE_TARBALL_PATH> :: release file path (e.g. /home/ubuntu/workspace/ap-portal-api-release-<VERSION>.tgz)   
+    $ bosh -e <bosh_name> create-release --name=ap-portal-api-release --sha2 --version=<VERSION> --tarball=<RELEASE_TARBALL_PATH> --force   
     ```   
 ### Deployment
-- https://github.com/PaaS-TA/portal-deployment   
+- https://github.com/K-PaaS/portal-deployment   
 
 ## Contributors ✨
 
@@ -119,8 +107,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/jinhyojin"><img src="https://avatars.githubusercontent.com/u/76993633?v=4?s=100" width="100px;" alt=""/><br /><sub><b>jinhyojin</b></sub></a><br /><a href="https://github.com/PaaS-TA/PAAS-TA-PORTAL-API-RELEASE/issues?q=author%3Ajinhyojin" title="Bug reports">🐛</a> <a href="https://github.com/PaaS-TA/PAAS-TA-PORTAL-API-RELEASE/commits?author=jinhyojin" title="Tests">⚠️</a> <a href="https://github.com/PaaS-TA/PAAS-TA-PORTAL-API-RELEASE/commits?author=jinhyojin" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/okpc579"><img src="https://avatars.githubusercontent.com/u/55691511?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ruby</b></sub></a><br /><a href="#infra-okpc579" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/PaaS-TA/PAAS-TA-PORTAL-API-RELEASE/commits?author=okpc579" title="Tests">⚠️</a> <a href="https://github.com/PaaS-TA/PAAS-TA-PORTAL-API-RELEASE/commits?author=okpc579" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/jinhyojin"><img src="https://avatars.githubusercontent.com/u/76993633?v=4?s=100" width="100px;" alt=""/><br /><sub><b>jinhyojin</b></sub></a><br /><a href="https://github.com/K-PaaS/ap-portal-api-release/issues?q=author%3Ajinhyojin" title="Bug reports">🐛</a> <a href="https://github.com/K-PaaS/ap-portal-api-release/commits?author=jinhyojin" title="Tests">⚠️</a> <a href="https://github.com/K-PaaS/ap-portal-api-release/commits?author=jinhyojin" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/okpc579"><img src="https://avatars.githubusercontent.com/u/55691511?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ruby</b></sub></a><br /><a href="#infra-okpc579" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/K-PaaS/ap-portal-api-release/commits?author=okpc579" title="Tests">⚠️</a> <a href="https://github.com/K-PaaS/ap-portal-api-release/commits?author=okpc579" title="Code">💻</a></td>
   </tr>
 </table>
 
