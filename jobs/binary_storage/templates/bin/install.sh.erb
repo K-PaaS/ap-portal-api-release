@@ -52,8 +52,11 @@ if [ ! -d "$DATA_DIR" ]; then
 
   apt upgrade -yq -o Dpkg::Options::="--force-confold" 
 
-  apt --no-install-recommends install -yq \
-        apache2=2.4.57-1+ubuntu22.04.1+deb.sury.org+1 \
+  sudo apt list -a apache2 >> test
+  APACHE_VERSION=$(grep "deb.sury.org" test | cut -d ' ' -f 2)
+  rm test
+  apt-get --no-install-recommends install -yq \
+        apache2=$APACHE_VERSION \
         openstack-release \
         keystone \
         swift \
