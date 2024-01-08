@@ -91,7 +91,7 @@
     ```
     ## <VERSION> :: release version (e.g. 2.5.1 or 2.5.1-ctn)
     ## <RELEASE_TARBALL_PATH> :: release file path (e.g. /home/ubuntu/workspace/ap-portal-api-release-<VERSION>.tgz)
-    $ bosh -e <bosh_name> create-release --name=ap-portal-api-release --sha2 --version=<VERSION> --tarball=<RELEASE_TARBALL_PATH> --force
+    $ bosh -e <bosh_name> create-release --name=ap-portal-api --sha2 --version=<VERSION> --tarball=<RELEASE_TARBALL_PATH> --force
     ```
 ### Deployment
 - https://github.com/K-PaaS/portal-deployment
